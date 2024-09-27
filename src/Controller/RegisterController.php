@@ -12,9 +12,9 @@ class RegisterController extends AbstractController
     #[Route('/inscription', name: 'app_register')]
     public function index(): Response
     {
-        $form = $this->createFrom( type:RegisterUserType::class);
+        $form = $this->createForm(RegisterUserType::class);
         return $this->render('register/index.html.twig',[
-            'form' => $from->createVieux()
+            'registerForm' => $form->createView()
         ]);
     }
 }
