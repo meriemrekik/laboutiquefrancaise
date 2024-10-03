@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\User;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -24,13 +23,7 @@ class RegisterUserType extends AbstractType
                 'attr' => [
                     'placeholder' => "Entrer votre adresse email"
                 ],
-                'constraints' => [
-                    new UniqueEntity([
-                        'class' => User::class,
-                        'fields' => 'email',
-                        'message' => 'Cette adresse email est déjà utilisée.'
-                    ])
-                ]
+                
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
@@ -51,7 +44,6 @@ class RegisterUserType extends AbstractType
                     new Length([
                         'min' => 2,
                         'max' => 30,
-                    
                     ])
                 ]
             ])
@@ -61,7 +53,6 @@ class RegisterUserType extends AbstractType
                     new Length([
                         'min' => 2,
                         'max' => 30,
-                        
                     ])
                 ],
                 'attr' => [
@@ -93,13 +84,7 @@ class RegisterUserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'constraints' => [
-                new UniqueEntity([
-                    'entityClass' => User::class,
-                    'fields' => 'email'
-                ])
-                ],
-            'data_class' => User::class,
+            'data_class' => User::class, // Ensure you're mapping the User class correctly
         ]);
     }
 }
