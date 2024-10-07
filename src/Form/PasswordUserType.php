@@ -49,11 +49,13 @@ class PasswordUserType extends AbstractType
                 $form = $event->getForm();
                 $user = $form->getConfig()->getOption('data');
                 $passwordHasher = $form->getConfig()->getOption('passwordHasher');
+                //Récupérer le mot de passe saisi par l'utulisateur et le comparer au mdp en base de donnee(ds l'entitié)
               
                 $isValid = $passwordHasher->isPasswordValid(
                     $user,
                     $form->get('actuelPassword')->getData()
                 );
+                //Si c'est !=envoyer une erreur
                 
                 if (!$isValid) {
                     $form->get('actuelPassword')->addError(new FormError('Votre mot de passe actuel n\'est pas correct. Veuillez vérifier votre saisie.'));

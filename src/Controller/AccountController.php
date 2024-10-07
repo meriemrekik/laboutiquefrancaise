@@ -22,11 +22,9 @@ class AccountController extends AbstractController
     public function password(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
-        $form = $this->createForm(PasswordUserType::class, $user, [
-            'passwordHasher' => $passwordHasher
-        ]);
-        
+        $form = $this->createForm(PasswordUserType::class, $user, ['passwordHasher' => $passwordHasher]);
         $form->handleRequest($request);
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->addFlash('success', 'Votre mot de passe a été mis à jour avec succès.');
@@ -38,12 +36,7 @@ class AccountController extends AbstractController
             throw $this->createAccessDeniedException('Aucun utilisateur connecté.');
         }
 
-      
-
     
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->addFlash('success', 'Votre mot de passe a été mis à jour avec succès.');
-            $entityManager->flush();
             
             return $this->render('account/password.html.twig', [
                 'modifyPwd' => $form->createView(),
@@ -68,5 +61,4 @@ class AccountController extends AbstractController
             'modifyPwd' => $form->createView(),
         ]);
     }
-}
 }
